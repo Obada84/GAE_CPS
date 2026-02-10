@@ -28,31 +28,15 @@ def load_mesh_edges(mesh_file):
     edge_list = lines[:, 1:3]
     return edge_list, mesh.points
 
-def build_sparse_graph_from_edges(nodes, edge_list, features, source):
-    N = nodes.shape[0]
-    temp = features.reshape(-1, 1) if features.ndim == 1 else features
-    src = source.reshape(-1, 1) if source.ndim == 1 else source
-    node_features = np.concatenate([nodes, temp, src], axis=1)
-    
-    senders = []
-    receivers = []
-    edge_set = set()
-    
-    for edge in edge_list:
-        i, j = int(edge[0]), int(edge[1])
-        if (i, j) not in edge_set and (j, i) not in edge_set:
-            senders.extend([i, j])
-            receivers.extend([j, i])
-            edge_set.add((i, j))
-    
-    senders = np.array(senders, dtype=np.int32)
-    receivers = np.array(receivers, dtype=np.int32)
-    
+def build_sparse_graph_from_edges(nodes, senders, receivers, features, source):
+    # Features direkt konkatenieren ohne Python-Listen
+    node_features = jnp.concatenate([nodes, features, source], axis=1) 
+    # Convert to JAX arrays directly
     graph = jraph.GraphsTuple(
         nodes=jnp.array(node_features, dtype=jnp.float32),
         edges=jnp.ones((len(senders), 1), dtype=jnp.float32),
-        senders=jnp.array(senders),
-        receivers=jnp.array(receivers),
+        senders=jnp.array(senders, dtype=jnp.int32),
+        receivers=jnp.array(receivers, dtype=jnp.int32),
         globals=jnp.zeros((1, 1)),
         n_node=jnp.array([N]),
         n_edge=jnp.array([len(senders)])
