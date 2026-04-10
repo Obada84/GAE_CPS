@@ -14,13 +14,10 @@ from scipy.spatial import cKDTree
 
 # DATA LOADING
 def build_edges_grid(k_neighbors=8):
-    """Build k-NN edges for 28x28 grid (same logic as DED mesh edges)."""
     x, y = np.meshgrid(np.arange(28), np.arange(28))
     positions = np.stack([x.ravel(), y.ravel()], axis=1).astype(np.float32)
-
     tree = cKDTree(positions)
     _, indices = tree.query(positions, k=k_neighbors + 1)
-
     edge_set, senders, receivers = set(), [], []
     for i in range(784):
         for j in indices[i, 1:]:
@@ -36,17 +33,12 @@ def build_edges_grid(k_neighbors=8):
 
 
 def load_mnist_data(n_samples=10000, k_neighbors=8):
-    """Load MNIST as node feature arrays (no jraph). Returns same format as DED."""
     print(f"Loading MNIST ({n_samples} samples, k={k_neighbors} neighbors)...")
     t0 = time.time()
-
     mnist = fetch_openml('mnist_784', version=1, parser='auto', as_frame=False)
     X = mnist.data[:n_samples].astype(np.float32) / 255.0
     y = mnist.target[:n_samples].astype(int)
-
     senders, receivers, positions = build_edges_grid(k_neighbors)
-
-    # Node features: [pos_x, pos_y, pixel] — shape (N_samples, 784, 3)
     node_features = np.zeros((n_samples, 784, 3), dtype=np.float32)
     node_features[:, :, 0] = np.tile(positions[:, 0], (n_samples, 1))
     node_features[:, :, 1] = np.tile(positions[:, 1], (n_samples, 1))
@@ -59,7 +51,6 @@ def load_mnist_data(n_samples=10000, k_neighbors=8):
 
 
 def create_geometric_assignment(positions, n_clusters):
-    """Identical to DED version."""
     kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10, max_iter=300)
     labels = kmeans.fit_predict(positions)
     S = np.zeros((positions.shape[0], n_clusters), dtype=np.float32)
@@ -183,7 +174,6 @@ def recon_loss(model, data, batch_axis):
 # EVALUATION
 
 def compute_recon_metrics(model, features):
-    """Compute per-sample RMSE on pixel channel (index 2)."""
     rmses = []
     chunk_size = 100
     for start in range(0, features.shape[0], chunk_size):
