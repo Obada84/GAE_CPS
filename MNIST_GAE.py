@@ -31,7 +31,6 @@ def build_edges_grid(k_neighbors=8):
             np.array(receivers, dtype=np.int32),
             positions / 27.0)
 
-
 def load_mnist_data(n_samples=10000, k_neighbors=8):
     print(f"Loading MNIST ({n_samples} samples, k={k_neighbors} neighbors)...")
     t0 = time.time()
