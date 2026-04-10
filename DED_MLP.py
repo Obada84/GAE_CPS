@@ -13,7 +13,6 @@ from jax.nn.initializers import variance_scaling
 from sklearn.cluster import KMeans
 
 # DATA LOADING
-
 def load_ded_data(data_dir, downsample=1, trajectories=None):
     raw_data     = np.load(data_dir / "data.npz")
     nodes        = np.array(raw_data["nodes"])
