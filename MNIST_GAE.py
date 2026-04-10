@@ -205,7 +205,7 @@ def main():
     N_SAMPLES = 10000
     K_NEIGHBORS = 8
     k1, k2 = 200, 40
-    MODEL_PATH = Path("MNIST_GAE_final.eqx")
+    MODEL_PATH = Path("MNIST_GAE.eqx")
     t0 = time.time()
     print("MNIST GAE Autoencoder")
     print(f"  d={LATENT_DIM}, LR={LR}, BS={BATCH}, k={K_NEIGHBORS}, Pool={k1}/{k2}")
