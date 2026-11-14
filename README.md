@@ -4,7 +4,7 @@ Code for the paper / M.Sc. thesis
 
 > **Graph Autoencoders with Structure-Preserving Port-Hamiltonian Latent Dynamics for Thermal Reduced-Order Modelling in Directed Energy Deposition**
 > Obada Allaham, Cyber-Physical Simulation, TU Darmstadt
-> Preprint: *link follows*
+> Preprint: [doi.org/10.5281/zenodo.24218585](https://doi.org/10.5281/zenodo.24218585)
 
 ![Architecture](figures/ded_arch.png)
 
