@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite it as below."
+title: "Graph Autoencoders with Structure-Preserving Port-Hamiltonian Latent Dynamics for Thermal Reduced-Order Modelling in Directed Energy Deposition"
+authors:
+  - family-names: Allaham
+    given-names: Obada
+    affiliation: "Technical University of Darmstadt"
+year: 2026
+repository-code: "https://github.com/Obada84/GAE_CPS"
