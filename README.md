@@ -114,11 +114,13 @@ Rough training times on the thesis setup: POD ~40 min, MLP ~60 min, GAE/VGAE ~50
 
 ```bibtex
 @misc{allaham2026gaesphnn,
-  title  = {Graph Autoencoders with Structure-Preserving Port-Hamiltonian Latent Dynamics
-            for Thermal Reduced-Order Modelling in Directed Energy Deposition},
-  author = {Allaham, Obada},
-  year   = {2026},
-  note   = {Preprint}
+  title     = {Graph Autoencoders with Structure-Preserving Port-Hamiltonian Latent Dynamics
+               for Thermal Reduced-Order Modelling in Directed Energy Deposition},
+  author    = {Allaham, Obada},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.24218585},
+  url       = {https://doi.org/10.5281/zenodo.24218585}
 }
 ```
 
